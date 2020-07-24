@@ -1,5 +1,5 @@
 {
-    "aws_access_key": "ACCESS_KEY",
-    "aws_access_secret": "ACCESS_SECRET",
-    "backet": "ams-picture-test"
+    "client_id": "client_id_sample",
+    "port": 5364,
+    "tmp_picture_file_path": "/home/pi/ams-camera/tmp/now.jpg"
 }
