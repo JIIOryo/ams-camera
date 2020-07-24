@@ -1,15 +1,21 @@
 from typing import Any, List
 import json
 import os
+import sys
+
+import pathlib
+current_dir = pathlib.Path(__file__).resolve().parent
+sys.path.append( str(current_dir) + '/../' )
+
+from lib.error import (
+    KeyNotExist,
+)
 
 AMS_CAMERA_ROOT_PATH = os.path.join(os.path.dirname(__file__), '../')
 CONFIG_PATH = '/'.join([
     AMS_CAMERA_ROOT_PATH,
     'camera_config.json',
 ])
-
-class KeyNotExist(Exception):
-    pass
 
 def read_json(json_path: str) -> dict:
      with open(json_path) as f:

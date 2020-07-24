@@ -7,3 +7,6 @@ class AmsCameraError(Exception):
 
 class S3UploadError(AmsCameraError):
     pass
+
+class KeyNotExist(Exception):
+    pass
