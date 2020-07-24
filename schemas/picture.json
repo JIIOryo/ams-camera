@@ -110,6 +110,11 @@
                     }
                 },
                 "required": []
+            },
+            "sounder": {
+                "type": "object",
+                "properties": {},
+                "required": []
             }
         },
         "required": [
@@ -117,6 +122,37 @@
             "resolution",
             "trimming",
             "cameraWarmUpTime"
+        ],
+        "examples": [
+            {
+                "objectName": "tank_id/client_name/2020/07/24/14_38_12.jpg",
+                "resolution": {
+                    "x": 1700,
+                    "y": 1024
+                },
+                "trimming": {
+                    "top": 100,
+                    "bottom": 1024,
+                    "left": 720,
+                    "right": 1700
+                },
+                "cameraWarmUpTime": 2.5,
+                "uploader": {
+                    "aws": {
+                        "accessKeyId": "accessKeyId",
+                        "secretAccessKey": "secretAccessKey",
+                        "s3Bucket": "s3-bucket",
+                        "region": "ap-northeast-1"
+                    },
+                    "mqtt": {
+                        "host": "broker_ip_address",
+                        "port": 1883,
+                        "userName": "user",
+                        "password": "password"
+                    }
+                },
+                "sounder": {}
+            }
         ]
     }
 }
