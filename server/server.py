@@ -21,13 +21,23 @@ ok = json.dumps({
     'code': 200
 })
 
+def error_response(e) -> dict:
+    code = 400
+    res = json.dumps({
+        'code': code,
+        'error': e.error,
+        'message': e.message,
+    })
+    return Response(res, 400)
+
 @app.errorhandler(jsonschema.ValidationError)
 def onValidationError(e):
-  res = json.dumps({
-      'message': 'Validation error: ' + str(e),
-      'code': 400
-  })
-  return Response(res , 400)
+    res = json.dumps({
+        'code': 400,
+        'error': e.__class__.__name__,
+        'message': 'Validation error: ' + str(e),
+    })
+    return Response(res , 400)
 
 @app.route('/ping')
 def ping():
@@ -36,7 +46,11 @@ def ping():
 @app.route('/picture', methods=['POST'])
 @app.validate('picture', 'picture')
 def take_picture():
-    picture(request.json)
+    try:
+        picture(request.json)
+    except Exception as e:
+        print(e)
+        return error_response(e)
     return Response(ok, 200)
 
 if __name__ == '__main__':
