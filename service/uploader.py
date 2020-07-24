@@ -30,7 +30,7 @@ def s3_upload(
         )
     except Exception as e:
         error = e.__class__.__name__
-        error_detail = ''.join(traceback.TracebackException.from_exception(e).format())
-        raise S3UploadError(error, 's3_upload error: ' + error_detail)
+        error_detail = 's3_upload error: ' + ''.join(traceback.TracebackException.from_exception(e).format())
+        raise S3UploadError(error, error_detail)
 
     return
