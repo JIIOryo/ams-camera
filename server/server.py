@@ -10,6 +10,7 @@ current_dir = pathlib.Path(__file__).resolve().parent
 sys.path.append( str(current_dir) + '/../' )
 
 from controller.camera import picture
+from lib.config import get_config_item
 
 app = Flask(__name__)
 JSONSchemaValidator(
@@ -53,5 +54,9 @@ def take_picture():
         return error_response(e)
     return jsonify(ok), 200
 
+def main():
+    PORT = get_config_item('port')
+    app.run(debug=True, host='0.0.0.0', port=PORT)
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5364)
+    main()
