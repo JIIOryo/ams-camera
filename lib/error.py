@@ -8,5 +8,11 @@ class AmsCameraError(Exception):
 class S3UploadError(AmsCameraError):
     pass
 
+class MqttNotAuthorisedError(AmsCameraError):
+    pass
+
+class MqttNoRouteToHostError(AmsCameraError):
+    pass
+
 class KeyNotExist(Exception):
     pass

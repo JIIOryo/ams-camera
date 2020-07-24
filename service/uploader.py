@@ -10,6 +10,8 @@ sys.path.append( str(current_dir) + '/../' )
 
 from lib.error import (
     S3UploadError,
+    MqttNotAuthorisedError,
+    MqttNoRouteToHostError,
 )
 
 def s3_upload(
@@ -39,7 +41,7 @@ def s3_upload(
 
     return
 
-def puclish_picture(
+def publish_picture(
     file_: str,
     host: str,
     port: int,
@@ -54,5 +56,20 @@ def puclish_picture(
     cmd += f'-t {topic} -f {file_}'
     if retain: cmd += '-r '
 
-    subprocess.run(cmd.split())
+    result = subprocess.run(cmd.split(), stderr=subprocess.PIPE)
+
+    if result.returncode != 0:
+        stderr_str = result.stderr.decode().replace('\n', '')
+
+        if result.returncode == 5:
+            raise MqttNotAuthorisedError(
+                error = 'MqttNotAuthorisedError',
+                message = stderr_str
+            )
+        elif result.returncode == 14:
+            raise MqttNoRouteToHostError(
+                error = 'MqttNoRouteToHostError',
+                message = stderr_str
+            )
+
     return
