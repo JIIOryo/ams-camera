@@ -16,7 +16,10 @@ JSONSchemaValidator(
     app = app,
     root = "schemas"
 )
-empty_response = {}
+ok = json.dumps({
+    'message': 'ok',
+    'code': 200
+})
 
 @app.errorhandler(jsonschema.ValidationError)
 def onValidationError(e):
@@ -28,13 +31,13 @@ def onValidationError(e):
 
 @app.route('/ping')
 def ping():
-    return jsonify(empty_response)
+    return Response(ok, 200)
 
 @app.route('/picture', methods=['POST'])
 @app.validate('picture', 'picture')
 def take_picture():
     picture(request.json)
-    return empty_response
+    return Response(ok, 200)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5364)
