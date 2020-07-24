@@ -1,1 +1,8 @@
+# config file
 camera_config.json
+
+# tmp pictures
+tmp
+
+# pycache
+__pycache__
