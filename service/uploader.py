@@ -1,5 +1,6 @@
 import traceback
 import sys
+import subprocess
 
 import boto3
 
@@ -36,4 +37,22 @@ def s3_upload(
         error_detail = 's3_upload error: ' + ''.join(traceback.TracebackException.from_exception(e).format())
         raise S3UploadError(error, error_detail)
 
+    return
+
+def puclish_picture(
+    file_: str,
+    host: str,
+    port: int,
+    user_name: str,
+    password: str,
+    retain: bool,
+    topic: str,
+) -> None:
+
+    cmd = f'mosquitto_pub -h {host} -p {port} '
+    if len(user_name) and len(password): cmd += f'-u {user_name} -P {password} '
+    cmd += f'-t {topic} -f {file_}'
+    if retain: cmd += '-r '
+
+    subprocess.run(cmd.split())
     return

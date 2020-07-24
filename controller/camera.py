@@ -6,7 +6,7 @@ sys.path.append( str(current_dir) + '/../' )
 
 from service.camera import take_picture
 from service.trimming import trimming
-from service.uploader import s3_upload
+from service.uploader import s3_upload, puclish_picture
 from lib.config import get_config_item
 
 TMP_PICTURE_PATH = get_config_item('tmp_picture_file_path')
@@ -26,6 +26,16 @@ def picture(request: dict) -> None:
         bottom = request['trimming']['bottom'],
         left = request['trimming']['left'],
         right = request['trimming']['right']
+    )
+
+    puclish_picture(
+        file_ = TMP_PICTURE_PATH,
+        host = request['uploader']['mqtt']['host'],
+        port = request['uploader']['mqtt']['port'],
+        user_name = request['uploader']['mqtt']['userName'],
+        password = request['uploader']['mqtt']['password'],
+        retain = False,
+        topic = 'test/picture'
     )
 
     s3_upload(
