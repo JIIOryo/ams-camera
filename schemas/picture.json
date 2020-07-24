@@ -73,12 +73,16 @@
                             },
                             "s3Bucket": {
                                 "type": "string"
+                            },
+                            "region": {
+                                "type": "string"
                             }
                         },
                         "required": [
                             "accessKeyId",
                             "secretAccessKey",
-                            "s3Bucket"
+                            "s3Bucket",
+                            "region"
                         ]
                     },
                     "mqtt": {
