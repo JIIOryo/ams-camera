@@ -1,12 +1,15 @@
 import traceback
+import sys
 
 import boto3
 
-class S3UploadError(Exception):
-    def __init__(self, error, message):
-        self.error = error
-        self.message = message
-    pass
+import pathlib
+current_dir = pathlib.Path(__file__).resolve().parent
+sys.path.append( str(current_dir) + '/../' )
+
+from lib.error import (
+    S3UploadError,
+)
 
 def s3_upload(
     file_: str,
