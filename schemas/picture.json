@@ -101,11 +101,19 @@
                             },
                             "password": {
                                 "type": "string"
+                            },
+                            "retain": {
+                                "type": "boolean"
+                            },
+                            "topic": {
+                                "type": "string"
                             }
                         },
                         "required": [
                             "host",
-                            "port"
+                            "port",
+                            "retain",
+                            "topic"
                         ]
                     }
                 },

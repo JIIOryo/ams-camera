@@ -34,8 +34,8 @@ def picture(request: dict) -> None:
         port = request['uploader']['mqtt']['port'],
         user_name = request['uploader']['mqtt']['userName'],
         password = request['uploader']['mqtt']['password'],
-        retain = False,
-        topic = 'test/picture'
+        retain = request['uploader']['mqtt']['retain'],
+        topic = request['uploader']['mqtt']['topic'],
     )
 
     s3_upload(
