@@ -133,7 +133,7 @@
         ],
         "examples": [
             {
-                "objectName": "tank_id/client_name/2020/07/24/14_38_12.jpg",
+                "objectName": "tank_id/camera_id/2020/07/24/14_38_12.jpg",
                 "resolution": {
                     "x": 1700,
                     "y": 1024
