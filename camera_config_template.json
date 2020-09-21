@@ -1,5 +1,6 @@
 {
     "client_id": "client_id_sample",
     "port": 5364,
-    "tmp_picture_file_path": "/home/pi/ams-camera/tmp/now.jpg"
+    "tmp_base_picture_path": "/home/pi/ams-camera/tmp/base.jpg",
+    "tmp_trimmed_picture_path": "/home/pi/ams-camera/tmp/trimmed.jpg"
 }
