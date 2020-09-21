@@ -28,21 +28,23 @@ def picture(request: dict) -> None:
         right = request['trimming']['right']
     )
 
-    publish_picture(
-        file_ = TMP_PICTURE_PATH,
-        host = request['uploader']['mqtt']['host'],
-        port = request['uploader']['mqtt']['port'],
-        user_name = request['uploader']['mqtt']['userName'],
-        password = request['uploader']['mqtt']['password'],
-        retain = request['uploader']['mqtt']['retain'],
-        topic = request['uploader']['mqtt']['topic'],
-    )
+    if 'mqtt' in request['uploader']:
+        publish_picture(
+            file_ = TMP_PICTURE_PATH,
+            host = request['uploader']['mqtt']['host'],
+            port = request['uploader']['mqtt']['port'],
+            user_name = request['uploader']['mqtt']['userName'],
+            password = request['uploader']['mqtt']['password'],
+            retain = request['uploader']['mqtt']['retain'],
+            topic = request['uploader']['mqtt']['topic'],
+        )
 
-    s3_upload(
-        file_ = TMP_PICTURE_PATH,
-        object_name = request['objectName'],
-        access_key_id = request['uploader']['aws']['accessKeyId'],
-        secret_access_key = request['uploader']['aws']['secretAccessKey'],
-        bucket = request['uploader']['aws']['s3Bucket'],
-        region = request['uploader']['aws']['region'],
-    )
+    if 'aws' in request['uploader']:
+        s3_upload(
+            file_ = TMP_PICTURE_PATH,
+            object_name = request['objectName'],
+            access_key_id = request['uploader']['aws']['accessKeyId'],
+            secret_access_key = request['uploader']['aws']['secretAccessKey'],
+            bucket = request['uploader']['aws']['s3Bucket'],
+            region = request['uploader']['aws']['region'],
+        )
