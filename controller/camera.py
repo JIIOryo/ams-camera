@@ -35,7 +35,7 @@ def picture(request: dict) -> None:
             right = camera['trimming']['right']
         )
 
-        if 'mqtt' in request['uploader']:
+        if 'mqtt' in request['uploader'] and 'topic' in camera:
             publish_picture(
                 file_ = TMP_TRIMMED_PICTURE_PATH,
                 host = request['uploader']['mqtt']['host'],
@@ -46,7 +46,7 @@ def picture(request: dict) -> None:
                 topic = camera['topic'],
             )
 
-        if 'aws' in request['uploader']:
+        if 'aws' in request['uploader'] and 'objectName' in camera:
             s3_upload(
                 file_ = TMP_TRIMMED_PICTURE_PATH,
                 object_name = camera['objectName'],

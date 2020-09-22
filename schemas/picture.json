@@ -47,7 +47,6 @@
                         }
                     },
                     "required": [
-                        "objectName",
                         "trimming"
                     ],
                     "additionalProperties": false
