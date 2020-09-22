@@ -2,8 +2,55 @@
     "picture": {
         "type": "object",
         "properties": {
-            "objectName": {
-                "type": "string"
+            "cameras": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "objectName": {
+                            "type": "string"
+                        },
+                        "topic": {
+                            "type": "string"
+                        },
+                        "trimming": {
+                            "type": "object",
+                            "properties": {
+                                "top": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 2048
+                                },
+                                "bottom": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 2048
+                                },
+                                "left": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 2048
+                                },
+                                "right": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 2048
+                                }
+                            },
+                            "required": [
+                                "top",
+                                "bottom",
+                                "left",
+                                "right"
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "required": [
+                        "trimming"
+                    ],
+                    "additionalProperties": false
+                }
             },
             "resolution": {
                 "type": "object",
@@ -22,38 +69,8 @@
                 "required": [
                     "x",
                     "y"
-                ]
-            },
-            "trimming": {
-                "type": "object",
-                "properties": {
-                    "top": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 2048
-                    },
-                    "bottom": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 2048
-                    },
-                    "left": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 2048
-                    },
-                    "right": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 2048
-                    }
-                },
-                "required": [
-                    "top",
-                    "bottom",
-                    "left",
-                    "right"
-                ]
+                ],
+                "additionalProperties": false
             },
             "cameraWarmUpTime": {
                 "type": "number",
@@ -104,16 +121,12 @@
                             },
                             "retain": {
                                 "type": "boolean"
-                            },
-                            "topic": {
-                                "type": "string"
                             }
                         },
                         "required": [
                             "host",
                             "port",
-                            "retain",
-                            "topic"
+                            "retain"
                         ]
                     }
                 },
@@ -126,25 +139,31 @@
             }
         },
         "required": [
-            "objectName",
+            "cameras",
             "resolution",
-            "trimming",
-            "cameraWarmUpTime"
+            "cameraWarmUpTime",
+            "uploader"
         ],
+        "additionalProperties": false,
         "examples": [
             {
-                "objectName": "tank_id/camera_id/2020/07/24/14_38_12.jpg",
+                "cameras": [
+                    {
+                        "objectName": "tank_id/camera_id/2020/07/24/14_38_12.jpg",
+                        "topic": "picture/test",
+                        "trimming": {
+                            "top": 100,
+                            "bottom": 1024,
+                            "left": 720,
+                            "right": 1700
+                        }
+                    }
+                ],
+                "cameraWarmUpTime": 2.5,
                 "resolution": {
                     "x": 1700,
                     "y": 1024
                 },
-                "trimming": {
-                    "top": 100,
-                    "bottom": 1024,
-                    "left": 720,
-                    "right": 1700
-                },
-                "cameraWarmUpTime": 2.5,
                 "uploader": {
                     "aws": {
                         "accessKeyId": "accessKeyId",
@@ -155,7 +174,6 @@
                     "mqtt": {
                         "host": "broker_ip_address",
                         "port": 1883,
-                        "topic": "picture/test",
                         "retain": false
                     }
                 },
