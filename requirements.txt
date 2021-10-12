@@ -1,6 +1,6 @@
 picamera
 requests
-opencv-python==4.1.1.26
+opencv-python==4.2.0.32
 boto3
 Flask==1.1.2
 flask-jsonschema-validator==0.0.4
